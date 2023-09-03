@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+
+{% block scripts %}
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+{% endblock scripts %}
+
+{% block content %}
+
+{% if student_questions %}
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for q in student_questions %}
+    <div>
+        <label for="">
+            {{ q.question }}
+          </label>
+    </div>
+    <input type="text" name="{{ q.id }}" id="">
+
+    <button type="submit" name="q">Submit</button>
+   {% endfor %}
+  </form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+Student Dash
+{% endblock %}
+
+{% block content %}
+<div>
+    <nav>
+        <a href="{% url 'logout' %}">Log Out</a>
+        <a href="{% url 'graph' %}"> Graphing Calculator</a>
+    </nav>
+    <br>
+    <header>
+        Welcome {{ user.username }}
+    </header>
+    <br>
+    <div>
+        {% if user.maths == True %}
+        <a href="#">
+            Maths
+        </a>
+        {% endif %}
+        {% if user.further_maths == True %}
+        <br>
+        <a href="#">
+            Further Maths
+        </a>
+        {% endif %}
+        <br>
+        <a href="{% url 'question' %}">Question Page</a>
+    </div>
+</div>
+
+
+{% endblock %}

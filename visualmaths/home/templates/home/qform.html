@@ -1,0 +1,34 @@
+{% extends 'home/base.html' %}
+
+{% block scripts %}
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+{% endblock scripts %}
+
+{% block content %}
+
+  {% if form %}
+  <form method="POST">
+    <fieldset>
+      <legend>Select Your Topics</legend>
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" name="qform">Submit</button>
+    </fieldset>
+  </form>
+  {% endif %}
+
+  {% if student_questions %}
+  <form action="" method="post">
+    {% for q in student_questions %}
+    <label for="">
+      {{ q.question }}
+    </label>
+   {% endfor %}
+  </form>
+  {% endif %}
+
+
+{% endblock %}
