@@ -1,5 +1,8 @@
 {% extends 'home/base.html' %}
-
+{% block css %}
+<style>
+</style>
+{% endblock css %}
 {% block scripts %}
 <script type="text/javascript"
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -16,10 +19,11 @@
         <label for="">
             {{ q.question }}
           </label>
-    </div>
-    <input type="text" name="{{ q.id }}" id="">
-
+          <br>
+          <input type="text" name="{{ q.id }}" id="">
     <button type="submit" name="q">Submit</button>
+    </div>
+    <br>
    {% endfor %}
   </form>
 {% endif %}
