@@ -40,7 +40,7 @@ def login(request):
             valid = check_password(passsword, user.password)
             if valid:
               request.session['user_id'] = user.id
-              return redirect('http://127.0.0.1:8000/home/dash/')
+              return redirect('/home/dash/')
             else:
                 password_error = "Incorrect Password"
                 context = {'form': form, 
@@ -57,14 +57,14 @@ def login(request):
 def logout(request):
     if 'user_id' in request.session:
         del request.session['user_id']
-    return redirect('http://127.0.0.1:8000/home/')
+    return redirect('/home/')
 
 def graph(request):
     if 'user_id' in request.session:
         user = get_user(request)
         return render(request, 'home/graph.html', {'user':user})
     else:
-        return redirect('http://127.0.0.1:8000/home/signup/')
+        return redirect('/home/signup/')
 
 def get_user(request):
     return StudentUser.objects.get(id=request.session['user_id'])
@@ -75,22 +75,27 @@ def dash(request):
         user = get_user(request)
         return render(request, 'home/dash.html', {'user':user})
     else:
-        return redirect('http://127.0.0.1:8000/home/signup/')
+        return redirect('/home/signup/')
     
 def qform(request):
     form = QuestionForm()
     if request.method == 'POST':
-        if 'qform' in request.POST:
-          subject = request.POST['subject']
-          topic = request.POST['topic']
-          difficulty = request.POST['difficulty']
-          student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
-          context = {
-            'student_questions': student_questions
-        }
-          return render(request, 'home/question.html', context)
+        subject = request.POST['subject']
+        topic = request.POST['topic']
+        difficulty = request.POST['difficulty']
+        return redirect('/home/question/?subject=' + subject + '&topic=' + topic + '&difficulty=' + difficulty)
     
     context = {
         'form': form
     }
     return render(request, 'home/qform.html', context)
+
+def question(request):
+    subject =  request.GET.get('subject')
+    topic =  request.GET.get('topic')
+    difficulty =  request.GET.get('difficulty')
+    student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
+    context = {
+        'student_questions': student_questions
+    }
+    return render(request, 'home/question.html', context)

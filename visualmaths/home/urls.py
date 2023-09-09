@@ -8,5 +8,6 @@ urlpatterns = [
    path('dash/', views.dash, name='dash'),
    path('logout/', views.logout, name='logout'),
    path('graph/', views.graph, name='graph'),
-   path('question/', views.qform, name='question'),
+   path('qform/', views.qform, name='qform'),
+   path('question/', views.question, name='question'),
 ]

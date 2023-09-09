@@ -15,20 +15,9 @@
       {% csrf_token %}
       {{ form.as_p }}
 
-      <button type="submit" name="qform">Submit</button>
+      <button type="submit" name="">Submit</button>
     </fieldset>
   </form>
   {% endif %}
-
-  {% if student_questions %}
-  <form action="" method="post">
-    {% for q in student_questions %}
-    <label for="">
-      {{ q.question }}
-    </label>
-   {% endfor %}
-  </form>
-  {% endif %}
-
 
 {% endblock %}
