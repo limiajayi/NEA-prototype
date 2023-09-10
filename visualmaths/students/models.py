@@ -34,10 +34,18 @@ TOPIC_CHOICES = [
    ("GRAPHS AND TRANSFORMATIONS", "Graphs and Transformations"),
    ("STRAIGHT LINE GRAPHS", "Straight Line Graphs"),
    ("CIRCLES", "Circles"),
+   ("TRIGONOMETRY", "Trigonometry"),
    ("DIFFERENTIATION", "Differentiation"),
    ("INTEGRATION", "Integration"),
+   ("EXPONENTIALS AND LOGARITHMS", "Exponentials and Logarithms"),
+   ("2DVECTORS", "2D Vectors"),
    ("ARGAND DIAGRAMS", "Argand Diagrams"),
    ("VOLUMES OF REVOLUTION", "Volumes of Revolution"),
+   ("METHODS IN CALCULUS", "Methods in Calculus"),
+   ("MATRICES", "Matrices"),
+   ("3DVECTORS", "3D Vectors"),
+   ("POLAR COORDINATES", "Polar Coordinates"),
+   ("HYPERBOLIC FUNCTIONS", "Hyperbolic functions"),
 ]
         
 
@@ -47,7 +55,7 @@ class Question(models.Model):
    subject = models.CharField(max_length=30, null=True, choices=SUBJECT_CHOICES)
    topic = models.CharField(max_length=100, null=True, blank=True, choices=TOPIC_CHOICES)
    difficulty = models.CharField(max_length=10, null=True, choices=Q_CHOICES)
-   image = models.CharField(max_length=100, null=True, blank=True)
+   image = models.ImageField(upload_to='images/', null=True, blank=True)
    mark_scheme = models.CharField(max_length=100, null=True, blank=True)
    answer_box = models.IntegerField(null=True, blank=True)
 

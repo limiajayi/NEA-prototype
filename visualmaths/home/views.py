@@ -95,6 +95,14 @@ def question(request):
     topic =  request.GET.get('topic')
     difficulty =  request.GET.get('difficulty')
     student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
+    if request.method == 'POST':
+        for q in student_questions:
+            if q.answer == request.POST.get(q.question):
+                msg = "Weldone!"
+                context = {
+                    'msg': msg
+                }
+                return render(request, 'home/question.html', context)
     context = {
         'student_questions': student_questions
     }

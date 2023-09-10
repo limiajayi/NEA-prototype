@@ -19,13 +19,19 @@
         <label for="">
             {{ q.question }}
           </label>
+          <img src="{{ q.image.url }}" alt="">
           <br>
-          <input type="text" name="{{ q.id }}" id="">
-    <button type="submit" name="q">Submit</button>
+          <input type="text" name="{{ q.question }}" id="">
     </div>
     <br>
    {% endfor %}
+   <button type="submit">Submit</button>
   </form>
+{% endif %}
+
+
+{% if msg %}
+{{ msg }}
 {% endif %}
 
 {% endblock %}
