@@ -1,8 +1,14 @@
 {% extends 'home/base.html' %}
+
 {% block css %}
 <style>
+  img {
+width: 40rem;
+height: 30rem;
+  }
 </style>
 {% endblock css %}
+
 {% block scripts %}
 <script type="text/javascript"
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -16,11 +22,11 @@
     {% csrf_token %}
     {% for q in student_questions %}
     <div>
+      <img src="{{ q.image.url }}" alt="">
+      <br>
         <label for="">
             {{ q.question }}
           </label>
-          <img src="{{ q.image.url }}" alt="">
-          <br>
           <input type="text" name="{{ q.question }}" id="">
     </div>
     <br>

@@ -55,8 +55,8 @@ class Question(models.Model):
    subject = models.CharField(max_length=30, null=True, choices=SUBJECT_CHOICES)
    topic = models.CharField(max_length=100, null=True, blank=True, choices=TOPIC_CHOICES)
    difficulty = models.CharField(max_length=10, null=True, choices=Q_CHOICES)
-   image = models.ImageField(upload_to='images/', null=True, blank=True)
-   mark_scheme = models.CharField(max_length=100, null=True, blank=True)
+   image = models.ImageField(upload_to='questions/', null=True, blank=True)
+   mark_scheme = models.ImageField(upload_to='markschemes/', null=True, blank=True)
    answer_box = models.IntegerField(null=True, blank=True)
 
    def __str__(self):
