@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+import mathsTopics.views
 
 urlpatterns = [
    path('', views.homepage, name='homepage'),
@@ -10,4 +11,5 @@ urlpatterns = [
    path('graph/', views.graph, name='graph'),
    path('qform/', views.qform, name='qform'),
    path('question/', views.question, name='question'),
+   path('quadratics/', mathsTopics.views.quadratics, name='quadratics'),
 ]
