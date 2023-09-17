@@ -97,6 +97,7 @@ def question(request):
     student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
     if request.method == 'POST':
         for q in student_questions:
+            print(request.POST.get(q.question))
             if q.answer == request.POST.get(q.question):
                 msg = "Weldone!"
                 context = {

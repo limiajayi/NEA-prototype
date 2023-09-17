@@ -51,7 +51,7 @@ TOPIC_CHOICES = [
 
 class Question(models.Model):
    question = models.CharField(max_length=500, null=True)
-   answer = models.CharField(max_length=50, null=True)
+   answer = models.CharField(max_length=1000, null=True)
    subject = models.CharField(max_length=30, null=True, choices=SUBJECT_CHOICES)
    topic = models.CharField(max_length=100, null=True, blank=True, choices=TOPIC_CHOICES)
    difficulty = models.CharField(max_length=10, null=True, choices=Q_CHOICES)
