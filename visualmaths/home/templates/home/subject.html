@@ -16,22 +16,16 @@ Student Dash
     </header>
     <br>
     <div>
-        
         {% if user.maths == True %}
-        <a href="{% url 'subject' %}">
-            Maths
-        </a>
-        {% endif %}
 
-        {% if user.further_maths == True %}
-        <br>
-        <a href="{% url 'subject' %}">
-            Further Maths
-        </a>
-        {% endif %}
-        <br>
-        <a href="{% url 'qform' %}">Question Page</a>
         <a href="{% url 'quadratics' %}">Quadratics</a>
+        <br>
+
+        {% endif %}
+        
+        {% if user.further_maths == True %}
+        
+        {% endif %}
     </div>
 </div>
 

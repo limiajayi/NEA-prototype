@@ -5518,24 +5518,42 @@ const editor = new MathJaxEditorKeyboard('#myEditor')
   <form action="" method="post">
     {% csrf_token %}
     {% for q in student_questions %}
+
+    <!--Uses a for loop to show questions from the query set of the user -->
     <div>
+      
+      {% if q.image.url %}
       <img src="{{ q.image.url }}" alt="">
+      {% endif %}
+
       <br>
         <label for="">
             {{ q.question }}
           </label>
           <textarea name="{{ q.question }}" id="myEditor"></textarea>
-    </div>
+
+        </div>
     <br>
+    
+    <div>
+      {% if good %}
+      <p>{{ good }}</p>
+      <img src="{{ markscheme }}" alt="">
+
+      {% endif %}
+    </div>
+    <div>
+      {% if bad %}
+
+      <p>{{ bad }}</p>
+      <img src="{{ markscheme }}" alt="">
+
+      {% endif %}
+    </div>
+
    {% endfor %}
 
    <button type="submit">Submit</button>
   </form>
 {% endif %}
-
-
-{% if msg %}
-{{ msg }}
-{% endif %}
-
 {% endblock %}

@@ -9,6 +9,7 @@ urlpatterns = [
    path('dash/', views.dash, name='dash'),
    path('logout/', views.logout, name='logout'),
    path('graph/', views.graph, name='graph'),
+   path('subject/', views.subject, name='subject'),
    path('qform/', views.qform, name='qform'),
    path('question/', views.question, name='question'),
    path('quadratics/', mathsTopics.views.quadratics, name='quadratics'),

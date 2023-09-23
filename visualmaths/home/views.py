@@ -5,7 +5,7 @@ from students.forms import SignupForm
 from students.forms import LoginForm, QuestionForm
 from students.models import StudentUser
 from students.models import Question
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
 
 # Create your views here.
@@ -77,6 +77,13 @@ def dash(request):
     else:
         return redirect('/home/signup/')
     
+def subject(request):
+    if 'user_id' in request.session:
+        user = get_user(request)
+        return render(request, 'home/subject.html', {'user':user})
+    else:
+        return redirect('/home/signup/')
+    
 def qform(request):
     form = QuestionForm()
     if request.method == 'POST':
@@ -99,9 +106,21 @@ def question(request):
         for q in student_questions:
             print(request.POST.get(q.question))
             if q.answer == request.POST.get(q.question):
-                msg = "Weldone!"
+                markscheme = q.mark_scheme.url
+                good_message = "Correct Answer!!"
                 context = {
-                    'msg': msg
+                    'good': good_message,
+                    'markscheme': markscheme,
+                    'student_questions': student_questions,
+                }
+                return render(request, 'home/question.html', context)
+            else:
+                bad_message = "Incorrect Answer."
+                markscheme = q.mark_scheme.url
+                context = {
+                    'student_questions': student_questions,
+                    'bad': bad_message,
+                    'markscheme': markscheme,
                 }
                 return render(request, 'home/question.html', context)
     context = {
