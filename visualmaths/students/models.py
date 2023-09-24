@@ -61,4 +61,32 @@ class Question(models.Model):
 
    def __str__(self):
         return self.question
+   
+class MathsPoints(models.Model):
+    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
+    quadratics = models.IntegerField(null=True, blank=True)
+    equations_and_inequalities = models.IntegerField(null=True, blank=True)
+    graphs_and_transformations = models.IntegerField(null=True, blank=True)
+    straight_line_graphs = models.IntegerField(null=True, blank=True)
+    circles = models.IntegerField(null=True, blank=True)
+    trigonometry = models.IntegerField(null=True, blank=True)
+    differentiation = models.IntegerField(null=True, blank=True)
+    integration = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+    
+class FurtherMathsPoints(models.Model):
+    username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
+    differentiation = models.IntegerField(null=True, blank=True)
+    integration = models.IntegerField(null=True, blank=True)
+    volumes_of_revolution = models.IntegerField(null=True, blank=True)
+    methods_in_calculus = models.IntegerField(null=True, blank=True)
+    matrices = models.IntegerField(null=True, blank=True)
+    polar_coordinates = models.IntegerField(null=True, blank=True)
+    hyperbolic_functions = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+
     

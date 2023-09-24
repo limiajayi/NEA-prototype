@@ -18,12 +18,51 @@ Student Dash
     <div>
         {% if user.maths == True %}
 
+        <h3>Maths</h3>
+
         <a href="{% url 'quadratics' %}">Quadratics</a>
         <br>
+        <a href="#">Equations and Inequalities</a>
+        <br>
+        <a href="#">Graphs and Transformations</a>
+        <br>
+        <a href="#">Straight Line Graphs</a>
+        <br>
+        <a href="#">Circles</a>
+        <br>
+        <a href="#">Trigonometry</a>
+        <br>
+        <a href="#">Differentiation</a>
+        <br>
+        <a href="#">Integration</a>
+        <br>
+        <a href="#">Exponentials and Logarithms</a>
+        <br>
+        <a href="#">2D Vectors</a>
 
         {% endif %}
         
         {% if user.further_maths == True %}
+        <h3>Further Maths</h3>
+
+        <a href="#">Differentiation</a>
+        <br>
+        <a href="#">Integration</a>
+        <br>
+        <a href="#">Argand Diagrams</a>
+        <br>
+        <a href="#">Volumes of revolution</a>
+        <br>
+        <a href="#">Methods in Calculus</a>
+        <br>
+        <a href="#">Matrices</a>
+        <br>
+        <a href="#">3D Vectors</a>
+        <br>
+        <a href="#">Polar Coordinates</a>
+        <br>
+        <a href="#">Hyperboliv Functions</a>
+
         
         {% endif %}
     </div>

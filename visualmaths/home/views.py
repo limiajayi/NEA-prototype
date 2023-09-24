@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from students.forms import SignupForm
 from students.forms import LoginForm, QuestionForm
-from students.models import StudentUser
-from students.models import Question
+from students.models import StudentUser, Question, MathsPoints, FurtherMathsPoints
 from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
 
@@ -69,14 +68,32 @@ def graph(request):
 def get_user(request):
     return StudentUser.objects.get(id=request.session['user_id'])
 
+def append_to_mathspoints(request):
+    user = get_user(request)
+    if MathsPoints.objects.filter(username=user).exists():
+        return None
+    elif user.maths == True:
+        new_user = MathsPoints(username=user)
+        new_user.save()
+    
+def append_to_furthermathspoints(request):
+    user = get_user(request)
+    if FurtherMathsPoints.objects.filter(username=user).exists():
+        return None
+    elif user.further_maths == True:
+        new_user = FurtherMathsPoints(username=user)
+        new_user.save()
+            
 @user_login_required
 def dash(request):
     if 'user_id' in request.session:
         user = get_user(request)
+        append_to_furthermathspoints(request)
+        append_to_mathspoints(request)
         return render(request, 'home/dash.html', {'user':user})
     else:
         return redirect('/home/signup/')
-    
+
 def subject(request):
     if 'user_id' in request.session:
         user = get_user(request)
