@@ -11,10 +11,6 @@ Student Dash
         <a href="{% url 'graph' %}"> Graphing Calculator</a>
     </nav>
     <br>
-    <header>
-        Welcome {{ user.username }}
-    </header>
-    <br>
     <div>
         {% if user.maths == True %}
 
@@ -61,7 +57,7 @@ Student Dash
         <br>
         <a href="#">Polar Coordinates</a>
         <br>
-        <a href="#">Hyperboliv Functions</a>
+        <a href="#">Hyperbolic Functions</a>
 
         
         {% endif %}

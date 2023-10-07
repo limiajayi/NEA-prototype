@@ -17,9 +17,9 @@ class StudentUser(models.Model):
       super(StudentUser, self).save(*args, **kwargs)
     
 Q_CHOICES = [
-   ("EASY", "Easy"),
-   ("MEDIUM", "Medium"),
-   ("HARD", "Hard"),
+   ("EASY", "easy"),
+   ("MEDIUM", "medium"),
+   ("HARD", "hard"),
 ]
 
 SUBJECT_CHOICES = [

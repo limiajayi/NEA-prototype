@@ -114,6 +114,14 @@ def qform(request):
     }
     return render(request, 'home/qform.html', context)
 
+def determine_points(word):
+    if word == "easy":
+        return 5
+    elif word == "medium":
+        return 10
+    else:
+        return 15
+
 def question(request):
     subject =  request.GET.get('subject')
     topic =  request.GET.get('topic')
