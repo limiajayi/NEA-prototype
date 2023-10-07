@@ -6,6 +6,7 @@ from students.forms import LoginForm, QuestionForm
 from students.models import StudentUser, Question, MathsPoints, FurtherMathsPoints
 from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
+from django.db.models import F
 
 # Create your views here.
 
@@ -115,11 +116,11 @@ def qform(request):
     return render(request, 'home/qform.html', context)
 
 def determine_points(word):
-    if word == "easy":
+    if word == "Easy":
         return 5
-    elif word == "medium":
+    elif word == "Medium":
         return 10
-    else:
+    elif word == "Hard":
         return 15
 
 def question(request):
@@ -128,26 +129,71 @@ def question(request):
     difficulty =  request.GET.get('difficulty')
     student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
     if request.method == 'POST':
-        for q in student_questions:
-            print(request.POST.get(q.question))
-            if q.answer == request.POST.get(q.question):
-                markscheme = q.mark_scheme.url
-                good_message = "Correct Answer!!"
-                context = {
+       if subject == "Maths":
+            user = get_user(request)
+            user_in_points = MathsPoints.objects.get(username=user)
+            for q in student_questions:
+                print(user_in_points)
+                if q.answer == request.POST.get(q.question):
+                    if topic == "Quadratics":
+                         user_in_points.quadratics += determine_points(difficulty)
+                    elif topic == "Equations and Inequalities":
+                         user_in_points.equations_and_inequalities += determine_points(difficulty)
+                    elif topic == "Graphs and Transformations":
+                         user_in_points.graphs_and_transformations += determine_points(difficulty)
+                    elif topic == "Straight Line Graphs":
+                         user_in_points.straight_line_graphs += determine_points(difficulty)
+                    elif topic == "Circles":
+                         user_in_points.circles += determine_points(difficulty)
+                    elif topic == "Trigonometry":
+                         user_in_points.trigonometry += determine_points(difficulty)
+                    elif topic == "Differentiation":
+                         user_in_points.differentiation += determine_points(difficulty)
+                    elif topic == "Integration":
+                        user_in_points.integration += determine_points(difficulty)
+                    user_in_points.save()
+                    print(request.POST.get(q.question))
+                    markscheme = q.mark_scheme.url
+                    good_message = "Correct Answer!!"
+                    context = {
                     'good': good_message,
                     'markscheme': markscheme,
                     'student_questions': student_questions,
-                }
-                return render(request, 'home/question.html', context)
-            else:
-                bad_message = "Incorrect Answer."
-                markscheme = q.mark_scheme.url
-                context = {
+                    }
+                    return render(request, 'home/question.html', context)
+                else:
+                    bad_message = "Incorrect Answer."
+                    markscheme = q.mark_scheme.url
+                    context = {
                     'student_questions': student_questions,
                     'bad': bad_message,
                     'markscheme': markscheme,
                 }
-                return render(request, 'home/question.html', context)
+                    return render(request, 'home/question.html', context)
+       else:
+           user = get_user(request)
+           user_in_points = FurtherMathsPoints.objects.get(username=user)
+           for q in student_questions:
+                if q.answer == request.POST.get(q.question):
+                    #update_fmaths_points()
+                    markscheme = q.mark_scheme.url
+                    good_message = "Correct Answer!!"
+                    context = {
+                    'good': good_message,
+                    'markscheme': markscheme,
+                    'student_questions': student_questions,
+                    }
+                    return render(request, 'home/question.html', context)
+                else:
+                    bad_message = "Incorrect Answer."
+                    markscheme = q.mark_scheme.url
+                    context = {
+                    'student_questions': student_questions,
+                    'bad': bad_message,
+                    'markscheme': markscheme,
+                }
+                    return render(request, 'home/question.html', context)
+           
     context = {
         'student_questions': student_questions
     }

@@ -17,35 +17,35 @@ class StudentUser(models.Model):
       super(StudentUser, self).save(*args, **kwargs)
     
 Q_CHOICES = [
-   ("EASY", "easy"),
-   ("MEDIUM", "medium"),
-   ("HARD", "hard"),
+   ("Easy", "Easy"),
+   ("Medium", "Medium"),
+   ("Hard", "Hard"),
 ]
 
 SUBJECT_CHOICES = [
-   ("MATHS", "Maths"),
-   ("FURTHER MATHS", "Further Maths")
+   ("Maths", "Maths"),
+   ("Further Maths", "Further Maths")
 ]
 
 
 TOPIC_CHOICES = [
-   ("QUADRATICS", "Quadratics"),
-   ("EQUATIONS AND INEQUALITIES", "Equations and Inequalities"),
-   ("GRAPHS AND TRANSFORMATIONS", "Graphs and Transformations"),
-   ("STRAIGHT LINE GRAPHS", "Straight Line Graphs"),
-   ("CIRCLES", "Circles"),
-   ("TRIGONOMETRY", "Trigonometry"),
-   ("DIFFERENTIATION", "Differentiation"),
-   ("INTEGRATION", "Integration"),
-   ("EXPONENTIALS AND LOGARITHMS", "Exponentials and Logarithms"),
-   ("2DVECTORS", "2D Vectors"),
-   ("ARGAND DIAGRAMS", "Argand Diagrams"),
-   ("VOLUMES OF REVOLUTION", "Volumes of Revolution"),
-   ("METHODS IN CALCULUS", "Methods in Calculus"),
-   ("MATRICES", "Matrices"),
-   ("3DVECTORS", "3D Vectors"),
-   ("POLAR COORDINATES", "Polar Coordinates"),
-   ("HYPERBOLIC FUNCTIONS", "Hyperbolic functions"),
+   ("Quadratics", "Quadratics"),
+   ("Equations and Inequalities", "Equations and Inequalities"),
+   ("Graphs and Transformations", "Graphs and Transformations"),
+   ("Straight Line Graphs", "Straight Line Graphs"),
+   ("Circles", "Circles"),
+   ("Trigonometry", "Trigonometry"),
+   ("Differentiation", "Differentiation"),
+   ("Integration", "Integration"),
+   ("Exponentials and Logarithms", "Exponentials and Logarithms"),
+   ("2D Vectors", "2D Vectors"),
+   ("Argand Diagrams", "Argand Diagrams"),
+   ("Volumes of Revolution", "Volumes of Revolution"),
+   ("Methods In Calculus", "Methods In Calculus"),
+   ("Matrices", "Matrices"),
+   ("3D Vectors", "3D Vectors"),
+   ("Polar Coordinates", "Polar Coordinates"),
+   ("Hyperbolic Functions", "Hyperbolic Functions"),
 ]
         
 
@@ -64,29 +64,32 @@ class Question(models.Model):
    
 class MathsPoints(models.Model):
     username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
-    quadratics = models.IntegerField(null=True, blank=True)
-    equations_and_inequalities = models.IntegerField(null=True, blank=True)
-    graphs_and_transformations = models.IntegerField(null=True, blank=True)
-    straight_line_graphs = models.IntegerField(null=True, blank=True)
-    circles = models.IntegerField(null=True, blank=True)
-    trigonometry = models.IntegerField(null=True, blank=True)
-    differentiation = models.IntegerField(null=True, blank=True)
-    integration = models.IntegerField(null=True, blank=True)
+    quadratics = models.IntegerField(default=0, blank=True)
+    equations_and_inequalities = models.IntegerField(default=0, blank=True)
+    graphs_and_transformations = models.IntegerField(default=0, blank=True)
+    straight_line_graphs = models.IntegerField(default=0, blank=True)
+    circles = models.IntegerField(default=0, blank=True)
+    trigonometry = models.IntegerField(default=0, blank=True)
+    differentiation = models.IntegerField(default=0, blank=True)
+    integration = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
-        return self.username
+        return str(self.username)
     
 class FurtherMathsPoints(models.Model):
     username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
-    differentiation = models.IntegerField(null=True, blank=True)
-    integration = models.IntegerField(null=True, blank=True)
-    volumes_of_revolution = models.IntegerField(null=True, blank=True)
-    methods_in_calculus = models.IntegerField(null=True, blank=True)
-    matrices = models.IntegerField(null=True, blank=True)
-    polar_coordinates = models.IntegerField(null=True, blank=True)
-    hyperbolic_functions = models.IntegerField(null=True, blank=True)
+    differentiation = models.IntegerField(default=0, blank=True)
+    integration = models.IntegerField(default=0, blank=True)
+    volumes_of_revolution = models.IntegerField(default=0, blank=True)
+    methods_in_calculus = models.IntegerField(default=0, blank=True)
+    matrices = models.IntegerField(default=0, blank=True)
+    polar_coordinates = models.IntegerField(default=0, blank=True)
+    hyperbolic_functions = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
-        return self.username
+        return str(self.username)
+    
+    def findField(self, word):
+        return self.word
 
     
