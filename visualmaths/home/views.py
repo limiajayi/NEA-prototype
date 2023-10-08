@@ -6,7 +6,7 @@ from students.forms import LoginForm, QuestionForm
 from students.models import StudentUser, Question, MathsPoints, FurtherMathsPoints
 from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
-from django.db.models import F
+from django.core import serializers
 
 # Create your views here.
 
@@ -128,12 +128,18 @@ def question(request):
     topic =  request.GET.get('topic')
     difficulty =  request.GET.get('difficulty')
     student_questions = Question.objects.filter(subject=subject, topic=topic, difficulty=difficulty)
+    #If a user submits their answers to their question
     if request.method == 'POST':
+       
+       #If the subject is maths or further maths
        if subject == "Maths":
             user = get_user(request)
             user_in_points = MathsPoints.objects.get(username=user)
             for q in student_questions:
                 print(user_in_points)
+
+                #Goes through topics for maths and increments based on topic variable
+                #If the answer they have input is equal to the answer add to their points.
                 if q.answer == request.POST.get(q.question):
                     if topic == "Quadratics":
                          user_in_points.quadratics += determine_points(difficulty)
@@ -151,6 +157,8 @@ def question(request):
                          user_in_points.differentiation += determine_points(difficulty)
                     elif topic == "Integration":
                         user_in_points.integration += determine_points(difficulty)
+                    elif topic == "2D Vectors":
+                        user_in_points.two_d_vectors += determine_points(difficulty)
                     user_in_points.save()
                     print(request.POST.get(q.question))
                     markscheme = q.mark_scheme.url
@@ -174,8 +182,29 @@ def question(request):
            user = get_user(request)
            user_in_points = FurtherMathsPoints.objects.get(username=user)
            for q in student_questions:
+                
                 if q.answer == request.POST.get(q.question):
-                    #update_fmaths_points()
+                    if topic == "Argand Diagrams":
+                         user_in_points.argand_diagrams += determine_points(difficulty)
+                    elif topic == "Volumes of Revolution":
+                         user_in_points.volumes_of_revolution += determine_points(difficulty)
+                    elif topic == "Methods In Calculus":
+                         user_in_points.methods_in_calculus += determine_points(difficulty)
+                    elif topic == "Straight Line Graphs":
+                         user_in_points.straight_line_graphs += determine_points(difficulty)
+                    elif topic == "Matrices":
+                         user_in_points.matrices += determine_points(difficulty)
+                    elif topic == "Polar Coordinates":
+                         user_in_points.polar_coordinates += determine_points(difficulty)
+                    elif topic == "Hyperbolic Functions":
+                         user_in_points.hyperbolic_functions += determine_points(difficulty)
+                    elif topic == "Differentiation":
+                         user_in_points.differentiation += determine_points(difficulty)
+                    elif topic == "Integration":
+                        user_in_points.integration += determine_points(difficulty)
+                    elif topic == "3D Vectors":
+                        user_in_points.three_d_vectors += determine_points(difficulty)
+                    user_in_points.save()
                     markscheme = q.mark_scheme.url
                     good_message = "Correct Answer!!"
                     context = {
@@ -195,6 +224,6 @@ def question(request):
                     return render(request, 'home/question.html', context)
            
     context = {
-        'student_questions': student_questions
+        'student_questions': student_questions,
     }
     return render(request, 'home/question.html', context)

@@ -72,6 +72,7 @@ class MathsPoints(models.Model):
     trigonometry = models.IntegerField(default=0, blank=True)
     differentiation = models.IntegerField(default=0, blank=True)
     integration = models.IntegerField(default=0, blank=True)
+    two_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return str(self.username)
@@ -80,11 +81,13 @@ class FurtherMathsPoints(models.Model):
     username = models.OneToOneField(StudentUser, on_delete=models.CASCADE, null=True, unique=True)
     differentiation = models.IntegerField(default=0, blank=True)
     integration = models.IntegerField(default=0, blank=True)
+    argand_diagrams = models.IntegerField(default=0, blank=True)
     volumes_of_revolution = models.IntegerField(default=0, blank=True)
     methods_in_calculus = models.IntegerField(default=0, blank=True)
     matrices = models.IntegerField(default=0, blank=True)
     polar_coordinates = models.IntegerField(default=0, blank=True)
     hyperbolic_functions = models.IntegerField(default=0, blank=True)
+    three_d_vectors = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return str(self.username)

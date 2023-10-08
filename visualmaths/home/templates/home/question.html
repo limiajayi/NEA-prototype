@@ -6,10 +6,6 @@
 width: 40rem;
 height: 30rem;
   }
-
-  textarea {
-    display:none
-  }
 </style>
 {% endblock css %}
 
@@ -23,6 +19,10 @@ height: 30rem;
 {% endblock scripts %}
 
 {% block content %}
+
+<nav>
+  <a href="{% url 'dash' %}">Back To Student Dash</a>
+</nav>
 
 {% if student_questions %}
 
@@ -38,16 +38,17 @@ height: 30rem;
             {{ q.question }}
           </label>
           <br>
-          <math-field id="formula">
+          <math-field style="width: 20rem; height: 2rem;" id="mf">
            
           </math-field>
           <br>
           <textarea name="{{ q.question }}" class="output" id="latex" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
-        </div>
-      <br>
+    </div>
+      <br>  
 
-      <script>
-        const mf = document.getElementById("formula");
+<script>
+
+  const mf = document.getElementById("mf");
 const latex = document.getElementById("latex");
 
 mf.addEventListener("input",(ev) => latex.value = mf.value);
@@ -63,7 +64,8 @@ latex.addEventListener("input", (ev) =>
       {suppressChangeNotifications: true}
     )
 );
-      </script>
+
+</script>
     
     <div>
       {% if good %}
