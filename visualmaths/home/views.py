@@ -6,7 +6,6 @@ from students.forms import LoginForm, QuestionForm
 from students.models import StudentUser, Question, MathsPoints, FurtherMathsPoints
 from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
-from django.core import serializers
 
 # Create your views here.
 
@@ -219,3 +218,23 @@ def question(request):
         'student_questions': student_questions,
     }
     return render(request, 'home/question.html', context)
+
+def weeklyAssessments(request):
+    user = get_user(request)
+    user_in_maths = MathsPoints.objects.get(username=user)
+    datapoints = [
+    { "y": user_in_maths.quadratics, "label": "Germany" },
+    { "y": user_in_maths.equations_and_inequalities, "label": "France" },
+    { "y": user_in_maths.straight_line_graphs, "label": "China" },
+    { "y": user_in_maths.graphs_and_transformations, "label": "Russia" },
+    { "y": user_in_maths.circles, "label": "Switzerland" },
+    { "y": user_in_maths.trigonometry, "label": "Japan" },
+    { "y": user_in_maths.differentiation, "label": "Netherlands" },
+    { "y": user_in_maths.integration, "label": "Netherlands" },
+    { "y": user_in_maths.two_d_vectors, "label": "Netherlands" },
+    ]
+    context = {
+        'datapoints': datapoints
+    }
+    return render(request, 'home/assessment.html', context)
+    
