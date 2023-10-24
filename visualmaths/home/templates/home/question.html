@@ -6,15 +6,17 @@
 width: 40rem;
 height: 30rem;
   }
+
+  math-field {
+    height: 3rem;
+    width: 10rem;
+  }
 </style>
 {% endblock css %}
 
 {% block scripts %}
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-<script defer src="//unpkg.com/mathlive">
-</script>
 
 {% endblock scripts %}
 
@@ -32,54 +34,36 @@ height: 30rem;
 
     <!--Uses a for loop to show questions from the query set of the user -->
     <div>
-
       <br>
-        <label for="">
+          <label for="">
             {{ q.question }}
           </label>
           <br>
-          <math-field style="width: 20rem; height: 2rem;" id="mf">
-           
-          </math-field>
+          
           <br>
-          <textarea name="{{ q.question }}" class="output" id="latex" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+          
+          <math-field name="{{ q.question }}"></math-field>
     </div>
-      <br>  
+      <br> 
 
-<script>
 
-  const mf = document.getElementById("mf");
-const latex = document.getElementById("latex");
-
-mf.addEventListener("input",(ev) => latex.value = mf.value);
-
-latex.value = mf.value;
-
-// Listen for changes in the "latex" text field, 
-// and reflect its value in the mathfield.
-
-latex.addEventListener("input", (ev) => 
-    mf.setValue(
-      ev.target.value, 
-      {suppressChangeNotifications: true}
-    )
-);
-
-</script>
-    
     <div>
       {% if good %}
       <p>{{ good }}</p>
-      <img src="{{ markscheme }}" alt="">
+      <img src="{{ q.mark_scheme.url }}" alt="">
       {% endif %}
     </div>
 
     <div>
       {% if bad %}
       <p>{{ bad }}</p>
-      <img src="{{ markscheme }}" alt="">
+      <img src="{{ q.mark_scheme.url }}" alt="">
       {% endif %}
     </div>
+
+    <script defer src="//unpkg.com/mathlive"> 
+      
+     </script>
 
    {% endfor %}
 

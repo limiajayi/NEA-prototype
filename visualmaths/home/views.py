@@ -136,8 +136,7 @@ def question(request):
             user = get_user(request)
             user_in_points = MathsPoints.objects.get(username=user)
             for q in student_questions:
-                print(user_in_points)
-
+                print(request.POST.get('dummy'))
                 #Goes through topics for maths and increments based on topic variable
                 #If the answer they have input is equal to the answer add to their points.
                 if q.answer == request.POST.get(q.question):
@@ -160,22 +159,19 @@ def question(request):
                     elif topic == "2D Vectors":
                         user_in_points.two_d_vectors += determine_points(difficulty)
                     user_in_points.save()
+
                     print(request.POST.get(q.question))
-                    markscheme = q.mark_scheme.url
                     good_message = "Correct Answer!!"
                     context = {
                     'good': good_message,
-                    'markscheme': markscheme,
                     'student_questions': student_questions,
                     }
                     return render(request, 'home/question.html', context)
                 else:
                     bad_message = "Incorrect Answer."
-                    markscheme = q.mark_scheme.url
                     context = {
                     'student_questions': student_questions,
                     'bad': bad_message,
-                    'markscheme': markscheme,
                 }
                     return render(request, 'home/question.html', context)
        else:
@@ -205,21 +201,17 @@ def question(request):
                     elif topic == "3D Vectors":
                         user_in_points.three_d_vectors += determine_points(difficulty)
                     user_in_points.save()
-                    markscheme = q.mark_scheme.url
                     good_message = "Correct Answer!!"
                     context = {
                     'good': good_message,
-                    'markscheme': markscheme,
                     'student_questions': student_questions,
                     }
                     return render(request, 'home/question.html', context)
                 else:
                     bad_message = "Incorrect Answer."
-                    markscheme = q.mark_scheme.url
                     context = {
                     'student_questions': student_questions,
                     'bad': bad_message,
-                    'markscheme': markscheme,
                 }
                     return render(request, 'home/question.html', context)
            
