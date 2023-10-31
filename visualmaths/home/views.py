@@ -83,6 +83,19 @@ def append_to_furthermathspoints(request):
     elif user.further_maths == True:
         new_user = FurtherMathsPoints(username=user)
         new_user.save()
+
+def recommend_maths(request):
+    user = get_user(request)
+    user_in_maths = MathsPoints.objects.get(username=user)
+    fields = [f for f in MathsPoints._meta.get_fields() if f.name not in  ['id', 'username']]
+    lowest_value = float('inf')
+    
+    for f in fields:
+        value = getattr(user_in_maths, f.name)
+        if value < lowest_value:
+            lowest_value = value
+            lowest_value_field = f.name
+            return lowest_value_field
             
 @user_login_required
 def dash(request):
@@ -90,7 +103,12 @@ def dash(request):
         user = get_user(request)
         append_to_furthermathspoints(request)
         append_to_mathspoints(request)
-        return render(request, 'home/dash.html', {'user':user})
+        mathstopic = recommend_maths(request)
+        context = {
+            'user':user,
+            'mathstopic': mathstopic
+            }
+        return render(request, 'home/dash.html', context)
     else:
         return redirect('/home/signup/')
 
