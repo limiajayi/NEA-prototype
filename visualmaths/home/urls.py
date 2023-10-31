@@ -13,5 +13,6 @@ urlpatterns = [
    path('qform/', views.qform, name='qform'),
    path('question/', views.question, name='question'),
    path('quadratics/', mathsTopics.views.quadratics, name='quadratics'),
+   path('equationsandinequalities/', mathsTopics.views.equations_and_inequalities, name='equations and inequalities'),
    path('assessment/', views.weeklyAssessments, name='assess'),
 ]
