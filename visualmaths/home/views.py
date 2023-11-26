@@ -6,6 +6,7 @@ from students.forms import LoginForm, QuestionForm
 from students.models import StudentUser, Question, MathsPoints, FurtherMathsPoints
 from django.contrib.auth.hashers import check_password
 from .decorators import user_login_required
+import plotly.graph_objects as go
 
 # Create your views here.
 
@@ -240,7 +241,10 @@ def question(request):
 def weeklyAssessments(request):
     user = get_user(request)
     user_in_maths = MathsPoints.objects.get(username=user)
+    fig = go.Figure(data=go.Bar(x=['quadratics', 'circles'], y=[user_in_maths.quadratics, user_in_maths.circles]))
+    chart = fig.to_html(full_html=False, default_height=500, default_width=700)
     context = {
+        'chart': chart,
     }
     return render(request, 'home/assessment.html', context)
     
